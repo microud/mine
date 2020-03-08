@@ -1,0 +1,26 @@
+{
+  "name": "Mine",
+  "version": "0.0.1",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "description": "A quick tool for reprinting article!",
+  "content_script": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "dist/content_script.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "browser_action": {
+    "default_icon": "resource/logo.png",
+    "default_title": "我的",
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}

@@ -1,0 +1,23 @@
+@import '~antd/dist/antd.css';
+
+.app {
+    width: 360px;
+}
+
+.quick-mode-form {
+    padding: 2px 16px;
+}
+
+.quick-mode-form-items {
+    margin-bottom: 10px;
+}
+
+.quick-mode-form .logo {
+    text-align: center;
+    min-height: 80px;
+    line-height: 80px;
+}
+
+.quick-mode-form button {
+    margin-bottom: 16px;
+}

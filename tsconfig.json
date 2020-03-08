@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "sourceMap": true,
+    "lib": [
+      "es2015", "es2016", "es2017", "dom", "dom.iterable"
+    ],
+    "types": [
+      "chrome"
+    ],
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
