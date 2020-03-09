@@ -83,9 +83,10 @@ export function fetchRule(url) {
 }
 
 export function extractByRule(extractor: ISiteRule, tempResult: IExtractResult): IExtractResult {
-  const result: IExtractResult, { document } = {
+  const result = {
     ...tempResult
   };
+  const { document } = result;
   const entries: [ string, IRule ][] = Object.entries(extractor);
   for (const [ key, rule ] of entries) {
     const selector = (typeof rule === 'string') ? rule : rule.selector;

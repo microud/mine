@@ -9,5 +9,4 @@ export function getCurrentTabHTML(): Promise<{ url: string; html: string }> {
       });
     });
   });
-
 }

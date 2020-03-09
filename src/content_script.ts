@@ -1,5 +1,11 @@
 chrome.runtime.onMessage.addListener(((message, sender, sendResponse) => {
   console.log(message, sender);
-  const htmlContent = document.documentElement.outerHTML;
-  sendResponse(htmlContent);
+  switch (message) {
+    case 'get-tab-html-content':
+      const htmlContent = document.documentElement.outerHTML;
+      sendResponse(htmlContent);
+      break;
+    default:
+  }
+
 }));
