@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { Button, Cascader, Input, List, message, Select, Switch, Tag, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons/lib';
+import { getCurrentTabHTML } from '../utils';
+import { extract } from '../extractor';
+import { IExtractResult } from '../extractor/extractor';
 
 interface IFormItem {
   key: string;
   label: string;
-  type: string;
+  type: 'cascader' | 'input' | 'select' | 'switch' | 'tags';
   eventHandle?: (value: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => any;
   options?: any[]
 }
@@ -19,7 +22,7 @@ interface IState {
   category: string;
   tags: string[];
   style: boolean;
-  source: string;
+  extractResult?: IExtractResult;
 }
 
 export class QuickMode extends React.Component<{}, IState> {
@@ -32,8 +35,20 @@ export class QuickMode extends React.Component<{}, IState> {
     category: '',
     tags: [],
     style: true,
-    source: '',
   };
+
+  componentDidMount() {
+    getCurrentTabHTML().then(result => {
+      const extractResult = extract(result.url, result.html);
+      this.setState({
+        title: extractResult.title,
+        author: extractResult.author,
+        datetime: extractResult.datetime,
+        content: extractResult.content,
+        extractResult,
+      });
+    });
+  }
 
   getItemsByPlatform(): IFormItem[] {
     return [
@@ -55,7 +70,7 @@ export class QuickMode extends React.Component<{}, IState> {
       {
         key: 'tag',
         label: '标签',
-        type: 'tag'
+        type: 'tags'
       },
       {
         key: 'style',
@@ -84,7 +99,7 @@ export class QuickMode extends React.Component<{}, IState> {
             ))}
           </Select>
         );
-      case 'tag':
+      case 'tags':
         return this.state.tags.map(tag => (
           <Tag key={tag}>{tag}</Tag>
         ));
