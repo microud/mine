@@ -38,7 +38,6 @@ export class QuickMode extends React.Component<{}, IState> {
   };
 
   componentDidMount() {
-    console.log('trying extract html');
     getCurrentTabHTML().then(result => {
       const extractResult = extract(result.url, result.html);
       this.setState({
@@ -86,6 +85,7 @@ export class QuickMode extends React.Component<{}, IState> {
       case 'switch':
         return (
           <Switch checked={this.state[item.key]}/>
+
         );
       case 'select':
         const { Option } = Select;

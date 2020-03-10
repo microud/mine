@@ -1,3 +1,5 @@
+import { platform } from './setting/platform';
+
 chrome.runtime.onMessage.addListener(((message, sender, sendResponse) => {
   console.log(message, sender);
   switch (message) {
@@ -7,5 +9,4 @@ chrome.runtime.onMessage.addListener(((message, sender, sendResponse) => {
       break;
     default:
   }
-
 }));
