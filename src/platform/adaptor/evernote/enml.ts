@@ -40,10 +40,12 @@ export function convert(document: JQuery<HTMLElement> | string): string {
   const template = '<?xml version="1.0" encoding="UTF-8"?>' +
     '<!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">' +
     '<en-note>{{ body }}</en-note>';
+
+  document.find('[class]').removeAttr('class');
   document.each((index, element) => {
-    console.log(index);
     const $element = $(element);
     $element.off();
+    // $element.removeClass();
     [ 'id', 'class', 'accesskey', 'data', 'dynsrc', 'tabindex' ]
       .map(attr => $element.removeAttr(attr));
 
@@ -59,7 +61,7 @@ export function convert(document: JQuery<HTMLElement> | string): string {
   let body = '';
 
   document.each((index, element) => {
-    body += element.outerHTML;
+    body += (element.outerHTML ? element.outerHTML : '');
   });
 
   return template.replace('{{ body }}', body);
