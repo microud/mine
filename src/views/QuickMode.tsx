@@ -4,6 +4,7 @@ import { InfoCircleOutlined } from '@ant-design/icons/lib';
 import { getCurrentTabHTML } from '../utils';
 import { extract } from '../extractor';
 import { IExtractResult } from '../extractor/extractor';
+import { platform } from '../platform';
 
 interface IFormItem {
   key: string;
@@ -47,6 +48,9 @@ export class QuickMode extends React.Component<{}, IState> {
         content: extractResult.content,
         extractResult,
       });
+      const targetPlatform = platform['evernote'];
+      const adapter = new targetPlatform.adapter({});
+      adapter.publish(extractResult);
     });
   }
 
