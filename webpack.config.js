@@ -3,6 +3,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
+  node: {
+    fs: 'empty',
+  },
   entry: {
     background: './src/background.ts',
     popup: './src/popup.ts',

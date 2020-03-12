@@ -40,17 +40,19 @@ export class QuickMode extends React.Component<{}, IState> {
 
   componentDidMount() {
     getCurrentTabHTML().then(result => {
-      const extractResult = extract(result.url, result.html);
-      this.setState({
-        title: extractResult.title,
-        author: extractResult.author,
-        datetime: extractResult.datetime,
-        content: extractResult.content,
-        extractResult,
+      extract(result.url, result.html).then(extractResult => {
+        this.setState({
+          title: extractResult.title,
+          author: extractResult.author,
+          datetime: extractResult.datetime,
+          content: extractResult.content,
+          extractResult,
+        });
       });
-      const targetPlatform = platform['evernote'];
-      const adapter = new targetPlatform.adapter({});
-      adapter.publish(extractResult);
+
+      // const targetPlatform = platform['evernote'];
+      // const adapter = new targetPlatform.adapter({});
+      // adapter.publish(extractResult);
     });
   }
 

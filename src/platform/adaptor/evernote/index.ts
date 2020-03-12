@@ -11,6 +11,6 @@ export class EvernoteAdaptor implements IAdaptor {
   }
 
   public async publish(data: IExtractResult) {
-    console.log(convert(data.content));
+    console.log(convert(`<div>${data.content}</div>`));
   }
 }

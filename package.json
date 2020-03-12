@@ -19,7 +19,11 @@
   "homepage": "https://github.com/microud/mine#readme",
   "dependencies": {
     "@ant-design/icons": "^4.0.2",
+    "@types/axios": "^0.14.0",
+    "@types/css": "^0.0.31",
     "antd": "^4.0.1",
+    "axios": "^0.19.2",
+    "css": "^2.2.4",
     "jquery": "^3.4.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
