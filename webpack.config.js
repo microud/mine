@@ -31,8 +31,22 @@ const config = {
         ],
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.css|\.less$/,
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: require.resolve('less-loader'),
+            options: {
+              importLoaders: 1,
+            },
+          },
+        ],
       },
     ],
   },
