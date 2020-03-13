@@ -13,24 +13,23 @@ export function getCurrentTabHTML(): Promise<{ url: string; html: string }> {
   });
 }
 
-export async function getCSSResources(list: StyleSheetList): Promise<string> {
-  console.log('styles', list);
-  const links: string[] = [];
-  for (let i = 0; i < list.length; i++) {
-    console.log(list[i].href);
-    links.push(list[i].href);
-  }
-  console.log(links);
-  const files = await axios.all(links);
-  return files.join('\n');
+export async function getCSSResources(styles: string[]): Promise<string> {
+  console.log('styles', styles);
+  const files = await Promise.all(styles.filter(link => !!link).map(link => axios.get(link)));
+
+  console.log(files);
+  return files.map(response => response.data).join('\n');
 }
 
-export function getCurrentPageCSS(): Promise<string> {
-  return new Promise<any>(resolve => {
+export async function getCurrentPageCSS(): Promise<string> {
+  const links = await new Promise<any>(resolve => {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
       chrome.tabs.sendMessage(tabs[0].id, 'get-page-style-sheets', response => {
+        console.log('get-page-style-sheets', response);
         resolve(response);
       });
     });
   });
+
+  return getCSSResources(links);
 }
