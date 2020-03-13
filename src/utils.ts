@@ -16,7 +16,7 @@ export function getCurrentTabHTML(): Promise<{ url: string; html: string }> {
 export async function getCSSResources(list: StyleSheetList): Promise<string> {
   console.log('styles', list);
   const links: string[] = [];
-  for (let i = 0; i++; i < list.length) {
+  for (let i = 0; i < list.length; i++) {
     console.log(list[i].href);
     links.push(list[i].href);
   }
