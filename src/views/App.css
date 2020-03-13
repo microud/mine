@@ -1,4 +1,5 @@
-@import '~antd/dist/antd.css';
+/*@import '~antd/dist/antd.css';*/
+@import "CleanMode.less";
 
 .app {
     width: 360px;
