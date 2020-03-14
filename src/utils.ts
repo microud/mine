@@ -14,10 +14,7 @@ export function getCurrentTabHTML(): Promise<{ url: string; html: string }> {
 }
 
 export async function getCSSResources(styles: string[]): Promise<string> {
-  console.log('styles', styles);
   const files = await Promise.all(styles.filter(link => !!link).map(link => axios.get(link)));
-
-  console.log(files);
   return files.map(response => response.data).join('\n');
 }
 
@@ -25,7 +22,6 @@ export async function getCurrentPageCSS(): Promise<string> {
   const links = await new Promise<any>(resolve => {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
       chrome.tabs.sendMessage(tabs[0].id, 'get-page-style-sheets', response => {
-        console.log('get-page-style-sheets', response);
         resolve(response);
       });
     });
