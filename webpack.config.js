@@ -18,7 +18,7 @@ const config = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', 'jsx', 'json'],
   },
-  devtool: 'source-map',
+  devtool: 'inline-cheap-module-source-map',
   module: {
     rules: [
       {
