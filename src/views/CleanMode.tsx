@@ -6,11 +6,13 @@ import './CleanMode.less';
 
 export function CleanMode() {
   const [ html, setHTML ] = useState('');
+  const [ title, setTitle ] = useState('');
 
   useEffect(() => {
     getCurrentTabHTML().then(result => {
       extract(result.url, result.html).then(extractResult => {
         setHTML(extractResult.content);
+        setTitle(extractResult.title);
       });
 
       // const targetPlatform = platform['evernote'];
@@ -20,9 +22,21 @@ export function CleanMode() {
   });
   return (
     <div id="clean-mode">
-      <div className="title">content</div>
+      <div className="meta">
+        <div className="title">{title}</div>
+        <div className="tags">Tags</div>
+        <div className="category">Category</div>
+      </div>
       <div className="content" dangerouslySetInnerHTML={{ __html: html }}/>
-      <div className="toolbar">hi</div>
+      <div className="toolbar">
+        <div className="left">
+          <div>All</div>
+          <div>Styled</div>
+          <div>HTML</div>
+          <div>Text</div>
+        </div>
+        <div className="right">Setting</div>
+      </div>
     </div>
   );
 }

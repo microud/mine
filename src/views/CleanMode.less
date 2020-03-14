@@ -1,22 +1,65 @@
+@containerWidth: 500px;
+@containerHeight: 550px;
+
+@metaHeight: 72px;
+@toolbarHeight: 24px;
+
 #clean-mode {
   display: flex;
   flex-direction: column;
-  width: 500px;
-  padding: 0 20px;
-  height: 700px;
-  min-height: 700px;
-  max-height: 700px;
-  .meta {
+  width: @containerWidth;
+  height: @containerHeight;
+  min-height: @containerHeight;
+  max-height: @containerHeight;
+  overflow: hidden;
 
+  .meta {
+    height: @metaHeight;
+    padding: 8px 20px 0 20px;
+    //border-bottom: 1px solid #dddddd;
+    .title {
+      font-size: 18px;
+    }
+    .tags {
+      border-left: 3px solid #6c98dd;
+      padding-left: 5px;
+      margin: 4px 0;
+    }
+    .category {
+      border-left: 3px solid #ddc291;
+      padding-left: 5px;
+      margin: 4px 0;
+    }
   }
 
   .content {
-    max-height: 600px;
-    height: 600px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    max-height: @containerHeight - @toolbarHeight - @metaHeight;
+    height: @containerHeight - @toolbarHeight - @metaHeight;
     overflow-y: scroll;
   }
 
   .toolbar {
-    height: 30px;
+    height: @toolbarHeight;
+    display: flex;
+    justify-content: space-between;
+    line-height: 24px;
+
+    .left {
+      display: flex;
+      div {
+        width: 60px;
+        min-width: 60px;
+        text-align: center;
+        cursor: default;
+        &:hover {
+          background: aliceblue;
+        }
+      }
+    }
+
+    .right {
+    }
   }
 }

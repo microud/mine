@@ -1,9 +1,12 @@
-/*@import '~antd/dist/antd.css';*/
-@import "CleanMode.less";
-
-.app {
-    width: 360px;
+@import "CleanMode.less"; /*@import '~antd/dist/antd.css';*/
+html, body {
+    margin: 0;
+    padding: 0;
 }
+
+/*.app {*/
+/*    width: 360px;*/
+/*}*/
 
 .quick-mode-form {
     padding: 2px 16px;
