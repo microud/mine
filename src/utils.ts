@@ -6,7 +6,7 @@ export function getCurrentTabHTML(): Promise<{ url: string; html: string }> {
       chrome.tabs.sendMessage(tabs[0].id, 'get-tab-html-content', response => {
         resolve({
           url: tabs[0].url,
-          html: response
+          html: response,
         });
       });
     });

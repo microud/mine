@@ -13,6 +13,10 @@ export interface ISiteRule {
   content?: IRule | string;
 }
 
+export interface IExtractOption {
+  style: 'raw' | 'none' | 'text'
+}
+
 export interface IExtractResult {
   title?: string;
   author?: string;

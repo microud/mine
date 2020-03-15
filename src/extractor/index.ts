@@ -1,9 +1,18 @@
 import * as $ from 'jquery';
-import { IExtractResult } from './extractor';
+import { IExtractOption, IExtractResult } from './extractor';
 import { extractByRule, fetchRule } from './rules';
 import { getCurrentPageCSS } from '../utils';
 import { inlineStyle } from './style';
+// @ts-ignore
+const Readability = require('./general/Readability');
 
+/**
+ * Pre process for lazy load images.
+ * TODO Checks for image elements that have an attribute that isn't an src or srcset,but looks like one, and replaces the src/srcset with that value (similar to what mercury-parser does).
+ * TODO Checks for <figure> elements that have an attribute with a value that looks like an src/srcset, but that don't contain any image nodes. In this case, a new image will be created and added to inside the <figure>
+ * reference https://github.com/mozilla/readability/pull/542
+ * @param document
+ */
 function imagePreProcessor(document: JQuery<HTMLElement>) {
   const images = document.find('img');
   images.each((index, element) => {
@@ -14,11 +23,11 @@ function imagePreProcessor(document: JQuery<HTMLElement>) {
       // console.log(element.attributes);
       $.each(element.attributes, (indexInArray, attr) => {
         if (httpProtocolUrlRegex.test(attr.value)) {
-          // console.log(attr.value);
           $element.attr('src', attr.value);
         }
       });
     }
+    $element.css('visibility', 'visible');
   });
 }
 
@@ -27,7 +36,7 @@ function imagePreProcessor(document: JQuery<HTMLElement>) {
  * @param url
  * @param html
  */
-export async function extract(url: string, html: string): Promise<IExtractResult> {
+export async function extract(url: string, html: string, option?: IExtractOption): Promise<IExtractResult> {
   // TODO extract needed value.
   const styles = await getCurrentPageCSS();
   console.log(styles);
@@ -46,6 +55,18 @@ export async function extract(url: string, html: string): Promise<IExtractResult
     result = extractByRule(extractor, result);
   } else {
     // TODO:
+    // const iframe = window.document.createElement('iframe');
+    // iframe.src = `data:text/html;charset=utf-8,${escape(document.html())}`;
+    // window.document.body.appendChild(iframe);
+
+    const parser = new DOMParser();
+
+    const doc = parser.parseFromString(document.html(), 'text/html');
+
+    const article = new Readability(doc).parse();
+    console.log(article);
+    result.title = article.title;
+    result.content = article.content;
     // general extractor works here.
   }
 
