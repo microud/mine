@@ -68,6 +68,14 @@ export const rules: ISiteRule[] = [
     datetime: '.s-dsoj time',
     content: 'article._2rhmJa',
   },
+  {
+    description: '微信',
+    url: 'mp\.weixin\.qq\.com\/s',
+    title: '#activity-name',
+    author: '#js_name',
+    datetime: '#publish_time',
+    content: '#js_content'
+  }
 ];
 
 export function fetchRule(url) {
