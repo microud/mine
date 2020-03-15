@@ -30,6 +30,7 @@ export function CleanMode() {
       <div className="content" dangerouslySetInnerHTML={{ __html: html }}/>
       <div className="toolbar">
         <div className="left">
+          <div>印象笔记</div>
           <div>All</div>
           <div>Styled</div>
           <div>HTML</div>
