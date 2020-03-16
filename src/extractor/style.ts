@@ -6,9 +6,9 @@ import * as $ from 'jquery';
  * @param document
  * @param linkedStyle
  */
-export function inlineStyle(document: JQuery<HTMLElement>, linkedStyle?: string) {
+export function inlineStyle(document: HTMLDocument, linkedStyle?: string) {
   const processor = postcss();
-  const $styles = document.find('style');
+  const $styles = $(document).find('style');
   let styles = $styles.text();
   if (linkedStyle) {
     styles = linkedStyle + styles;
@@ -20,7 +20,7 @@ export function inlineStyle(document: JQuery<HTMLElement>, linkedStyle?: string)
       // Generate selector of current rule.
       const selector = (rule as postcss.Rule).selectors.filter(selector => /(:{1,2}|@)/.test(selector) === false).join(',');
       // Get style declarations.
-      const elements = document.find(selector);
+      const elements = $(document).find(selector);
       elements.each((index, element) => {
         const $element = $(element);
         const oldStyles = $element.attr('style') || '';
@@ -43,7 +43,7 @@ export function inlineStyle(document: JQuery<HTMLElement>, linkedStyle?: string)
     }
   }
   $styles.remove();
-  document.find('link').remove();
-  document.find('meta').remove();
-  document.find('script').remove();
+  $(document).find('link').remove();
+  $(document).find('meta').remove();
+  $(document).find('script').remove();
 }

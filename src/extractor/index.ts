@@ -13,15 +13,15 @@ const Readability = require('./general/Readability');
  * reference https://github.com/mozilla/readability/pull/542
  * @param document
  */
-function imagePreProcessor(document: JQuery<HTMLElement>) {
-  const images = document.find('img');
+function imagePreProcessor(document: HTMLDocument) {
+  const images = $(document).find('img');
   images.each((index, element) => {
     const $element = $(element);
     const src = $element.attr('src');
     const httpProtocolUrlRegex = /^(http|https):\/\/([\w.]+\/?)\S*/;
     if (!httpProtocolUrlRegex.test(src)) {
       // console.log(element.attributes);
-      $.each(element.attributes, (indexInArray, attr) => {
+      $.each((element as any as HTMLElement).attributes, (indexInArray, attr) => {
         if (httpProtocolUrlRegex.test(attr.value)) {
           $element.attr('src', attr.value);
         }
@@ -40,7 +40,8 @@ export async function extract(url: string, html: string, option?: IExtractOption
   // TODO extract needed value.
   const styles = await getCurrentPageCSS();
   console.log(styles);
-  const document = $(`<div>${html}</div>n`);
+  const parser = new DOMParser();
+  const document = parser.parseFromString(html, 'text/html'); // $(`<div>${html}</div>n`);
   imagePreProcessor(document);
   inlineStyle(document, styles);
   let result: IExtractResult = {
@@ -61,7 +62,7 @@ export async function extract(url: string, html: string, option?: IExtractOption
 
     const parser = new DOMParser();
 
-    const doc = parser.parseFromString(document.html(), 'text/html');
+    const doc = result.document;
 
     const article = new Readability(doc).parse();
     console.log(article);

@@ -24,5 +24,5 @@ export interface IExtractResult {
   content?: string;
   source?: string;
   html: string;
-  document: JQuery<HTMLElement>;
+  document: HTMLDocument;
 }

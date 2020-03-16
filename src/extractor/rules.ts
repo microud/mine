@@ -1,4 +1,5 @@
 import { IExtractResult, IRule, ISiteRule } from './extractor';
+import * as $ from 'jquery';
 
 export const rules: ISiteRule[] = [
   {
@@ -101,19 +102,19 @@ export function extractByRule(extractor: ISiteRule, tempResult: IExtractResult):
     switch (key) {
       case 'title':
         if (rule.head) {
-          result[key] = document.find('head > title')?.text();
+          result[key] = $(document).find('head > title')?.text();
         } else if (rule.exact !== false) {
-          result[key] = document.find(selector).html();
+          result[key] = $(document).find(selector).html();
         }
         break;
       case 'datetime':
-        result[key] = document.find(selector).html();
+        result[key] = $(document).find(selector).html();
         break;
       case 'author':
-        result[key] = document.find(selector).text();
+        result[key] = $(document).find(selector).text();
         break;
       case 'content':
-        result[key] = document.find(selector).html();
+        result[key] = $(document).find(selector).html();
         break;
     }
   }
